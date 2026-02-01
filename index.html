@@ -3,42 +3,63 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Carbon Footprint Score</title>
+  <title>Family Carbon Footprint Check</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="bgGlow"></div>
+
   <div class="app">
     <header class="header">
-      <h1>🌍 Carbon Footprint Score</h1>
-      <p class="sub">Quick lifestyle quiz → score, insights, and leaderboard</p>
+      <div class="brand">
+        <div class="logo">🌍</div>
+        <div>
+          <h1>Family Carbon Footprint Check</h1>
+          <p class="sub">Parents edition • 15 questions • practical improvement plan</p>
+        </div>
+      </div>
     </header>
 
-    <main class="card" id="main">
-      <!-- Step 1: profile -->
+    <main class="card">
+      <!-- Profile -->
       <section id="stepProfile">
-        <h2>Start</h2>
+        <h2>Parent Details</h2>
+        <p class="hint">We collect this only for the school project record. Please enter correct details.</p>
+
         <div class="grid">
-          <label>
-            Name / Nickname
-            <input id="name" type="text" placeholder="e.g., Aditya" />
+          <label>Parent Name
+            <input id="parentName" type="text" placeholder="e.g., Rahul Sharma" />
           </label>
-          <label>
-            Class / Section
-            <input id="className" type="text" placeholder="e.g., 10-A" />
+          <label>Phone Number
+            <input id="phone" type="tel" placeholder="e.g., 98XXXXXXXX" />
+          </label>
+          <label class="full">Home Address
+            <input id="address" type="text" placeholder="e.g., Sector 21, Noida" />
+          </label>
+          <label>Child Class / Section
+            <input id="childClass" type="text" placeholder="e.g., 6-B" />
           </label>
         </div>
 
-        <button class="btn" id="btnStart">Start Quiz →</button>
-        <button class="btn ghost" id="btnResume" style="display:none;">Resume saved quiz</button>
+        <div class="row">
+          <button class="btn" id="btnStart">Start →</button>
+          <button class="btn ghost" id="btnResume" style="display:none;">Resume saved</button>
+        </div>
+
+        <div class="privacy">
+          🔒 Tip: If you don’t want to store address/phone publicly, I can modify this to store only “Area + last 4 digits”.
+        </div>
       </section>
 
-      <!-- Step 2: quiz -->
+      <!-- Quiz -->
       <section id="stepQuiz" style="display:none;">
         <div class="toprow">
           <div>
             <div class="pill" id="arenaPill"></div>
             <div class="qtitle" id="qText"></div>
+            <div class="qsub" id="qSub"></div>
           </div>
+
           <div class="progress">
             <div class="bar"><div class="fill" id="progFill"></div></div>
             <div class="pct" id="progText"></div>
@@ -53,48 +74,62 @@
         </div>
       </section>
 
-      <!-- Step 3: results -->
+      <!-- Results -->
       <section id="stepResults" style="display:none;">
-        <h2>Your Results</h2>
+        <h2>Your Family Report</h2>
+
         <div class="scoreRow">
           <div class="bigScore">
             <div class="score" id="overallScore">0</div>
-            <div class="badge" id="badgeText">Eco Beginner</div>
+            <div class="badge" id="badgeText">—</div>
+            <div class="small" id="whereYouAre">—</div>
           </div>
+
           <div class="arenaScores" id="arenaScores"></div>
         </div>
 
         <div class="insights">
-          <h3>Pros & Cons</h3>
+          <h3>What to improve next</h3>
+          <ul id="improvements"></ul>
+        </div>
+
+        <div class="insights">
+          <h3>Benefits you’ll get</h3>
           <div class="twoCol">
             <div>
-              <h4>👍 Strengths</h4>
-              <ul id="strengths"></ul>
+              <h4>🫁 Health</h4>
+              <ul id="healthBenefits"></ul>
             </div>
             <div>
-              <h4>⚠ Improve next</h4>
-              <ul id="improvements"></ul>
+              <h4>🌱 Environment</h4>
+              <ul id="envBenefits"></ul>
             </div>
           </div>
         </div>
 
         <div class="actions">
-          <button class="btn" id="btnSubmit">Submit to Leaderboard</button>
+          <button class="btn" id="btnSubmit">Submit</button>
           <button class="btn ghost" id="btnRestart">Restart</button>
+          <button class="btn ghost" id="btnAI">Get AI Advice (optional)</button>
         </div>
 
         <p class="status" id="submitStatus"></p>
 
         <hr />
 
-        <h3>🏆 Leaderboard</h3>
-        <button class="btn ghost" id="btnRefreshLB">Refresh Leaderboard</button>
+        <h3>🏆 Leaderboard (by overall score)</h3>
+        <button class="btn ghost" id="btnRefreshLB">Refresh</button>
         <div class="leaderboard" id="leaderboard"></div>
+
+        <div class="aiBox" id="aiBox" style="display:none;">
+          <h3>🤖 AI Advice</h3>
+          <div id="aiText" class="aiText"></div>
+        </div>
       </section>
     </main>
 
     <footer class="footer">
-      <small>School Project • Data stored in Google Sheet</small>
+      <small>School Project • Hosted on GitHub Pages • Data stored in Google Sheet</small>
     </footer>
   </div>
 
