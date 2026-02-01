@@ -1,0 +1,50 @@
+:root { --bg:#0b1220; --card:#111a2e; --muted:#9fb0d0; --text:#e8efff; --accent:#4ade80; --accent2:#60a5fa; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background: radial-gradient(1200px 800px at 20% 0%, #12224a, var(--bg)); color: var(--text); }
+.app { max-width: 860px; margin: 0 auto; padding: 24px; }
+.header h1 { margin: 0; font-size: 28px; }
+.sub { margin: 6px 0 0; color: var(--muted); }
+.card { background: rgba(17,26,46,.88); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 18px; box-shadow: 0 14px 40px rgba(0,0,0,.25); }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+label { display:flex; flex-direction: column; gap: 6px; color: var(--muted); font-size: 13px; }
+input { padding: 10px 12px; border-radius: 10px; border:1px solid rgba(255,255,255,.12); background:#0d1528; color: var(--text); }
+.btn { border:0; border-radius: 12px; padding: 10px 14px; background: linear-gradient(90deg, var(--accent), #22c55e); color: #05210f; font-weight: 700; cursor:pointer; }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.btn.ghost { background: transparent; border:1px solid rgba(255,255,255,.18); color: var(--text); }
+.toprow { display:flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+.pill { display:inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(96,165,250,.16); border: 1px solid rgba(96,165,250,.28); color: var(--text); font-weight: 700; font-size: 12px; }
+.qtitle { margin-top: 10px; font-size: 18px; font-weight: 750; }
+.progress { min-width: 220px; }
+.bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,.1); overflow:hidden; }
+.fill { height: 100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+.pct { margin-top: 6px; color: var(--muted); font-size: 12px; text-align:right; }
+.options { margin: 14px 0; display:grid; gap: 10px; }
+.opt { padding: 12px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(13,21,40,.75); cursor:pointer; display:flex; justify-content: space-between; align-items:center; }
+.opt.selected { border-color: rgba(74,222,128,.75); box-shadow: 0 0 0 3px rgba(74,222,128,.15) inset; }
+.nav { display:flex; justify-content: space-between; gap: 12px; }
+.scoreRow { display:flex; gap: 16px; align-items: stretch; }
+.bigScore { flex: 0 0 220px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+.score { font-size: 56px; font-weight: 900; line-height: 1; }
+.badge { margin-top: 8px; display:inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(74,222,128,.14); border:1px solid rgba(74,222,128,.25); }
+.arenaScores { flex: 1; display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.box { padding: 12px; border-radius: 14px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
+.box .k { color: var(--muted); font-size: 12px; }
+.box .v { font-size: 22px; font-weight: 800; }
+.insights { margin-top: 14px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); }
+.twoCol { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.actions { margin-top: 14px; display:flex; gap: 10px; }
+.status { color: var(--muted); }
+.leaderboard { margin-top: 10px; display:grid; gap: 8px; }
+.lbrow { display:grid; grid-template-columns: 60px 1fr 120px 90px; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(13,21,40,.75); border: 1px solid rgba(255,255,255,.10); }
+.footer { margin-top: 14px; color: var(--muted); text-align:center; }
+hr { border:0; height:1px; background: rgba(255,255,255,.12); margin: 16px 0; }
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+  .toprow { flex-direction: column; }
+  .scoreRow { flex-direction: column; }
+  .arenaScores { grid-template-columns: 1fr; }
+  .twoCol { grid-template-columns: 1fr; }
+  .lbrow { grid-template-columns: 50px 1fr 90px; }
+  .lbrow .cls { display:none; }
+}

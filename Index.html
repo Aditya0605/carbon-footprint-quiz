@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carbon Footprint Score</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>🌍 Carbon Footprint Score</h1>
+      <p class="sub">Quick lifestyle quiz → score, insights, and leaderboard</p>
+    </header>
+
+    <main class="card" id="main">
+      <!-- Step 1: profile -->
+      <section id="stepProfile">
+        <h2>Start</h2>
+        <div class="grid">
+          <label>
+            Name / Nickname
+            <input id="name" type="text" placeholder="e.g., Aditya" />
+          </label>
+          <label>
+            Class / Section
+            <input id="className" type="text" placeholder="e.g., 10-A" />
+          </label>
+        </div>
+
+        <button class="btn" id="btnStart">Start Quiz →</button>
+        <button class="btn ghost" id="btnResume" style="display:none;">Resume saved quiz</button>
+      </section>
+
+      <!-- Step 2: quiz -->
+      <section id="stepQuiz" style="display:none;">
+        <div class="toprow">
+          <div>
+            <div class="pill" id="arenaPill"></div>
+            <div class="qtitle" id="qText"></div>
+          </div>
+          <div class="progress">
+            <div class="bar"><div class="fill" id="progFill"></div></div>
+            <div class="pct" id="progText"></div>
+          </div>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="nav">
+          <button class="btn ghost" id="btnBack">← Back</button>
+          <button class="btn" id="btnNext" disabled>Next →</button>
+        </div>
+      </section>
+
+      <!-- Step 3: results -->
+      <section id="stepResults" style="display:none;">
+        <h2>Your Results</h2>
+        <div class="scoreRow">
+          <div class="bigScore">
+            <div class="score" id="overallScore">0</div>
+            <div class="badge" id="badgeText">Eco Beginner</div>
+          </div>
+          <div class="arenaScores" id="arenaScores"></div>
+        </div>
+
+        <div class="insights">
+          <h3>Pros & Cons</h3>
+          <div class="twoCol">
+            <div>
+              <h4>👍 Strengths</h4>
+              <ul id="strengths"></ul>
+            </div>
+            <div>
+              <h4>⚠ Improve next</h4>
+              <ul id="improvements"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="btnSubmit">Submit to Leaderboard</button>
+          <button class="btn ghost" id="btnRestart">Restart</button>
+        </div>
+
+        <p class="status" id="submitStatus"></p>
+
+        <hr />
+
+        <h3>🏆 Leaderboard</h3>
+        <button class="btn ghost" id="btnRefreshLB">Refresh Leaderboard</button>
+        <div class="leaderboard" id="leaderboard"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>School Project • Data stored in Google Sheet</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
