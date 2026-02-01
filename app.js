@@ -1,170 +1,131 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwnu1daY9rcOGaQrYmkDFnZR5lEZDmE2deXqYrdQi4c1Z8Ss0rocDi3HYD6kOOxPUEx3g/exec";
 
 const QUIZ = [
-  { arena:"transport", text:"How do you usually travel to school?", options:[
-    {label:"Walk / Cycle", pts:5, pro:"Zero emissions + good fitness", con:"May be slower / weather dependent"},
-    {label:"School bus", pts:4, pro:"Shared travel reduces per-student emissions", con:"Still uses fuel"},
-    {label:"Public transport", pts:3, pro:"More efficient than private vehicles", con:"May be crowded"},
-    {label:"Two-wheeler", pts:2, pro:"Less fuel than car", con:"Pollution + safety risk"},
-    {label:"Car", pts:1, pro:"Comfortable", con:"Highest emissions per student"},
+  // ========== TRANSPORT (5) ==========
+  { arena:"transport", tip:"Transport is often the biggest daily footprint in families.", text:"How does your child usually go to school?", options:[
+    {label:"Walk / Cycle", pts:5, why:"Best option: zero fuel emissions"},
+    {label:"School bus", pts:4, why:"Shared travel reduces per-person emissions"},
+    {label:"Public transport", pts:3, why:"Better than private vehicle"},
+    {label:"Carpool with other parents", pts:4, why:"Sharing reduces emissions per family"},
+    {label:"Private car (only family)", pts:1, why:"Highest emissions per student"},
   ]},
-  { arena:"transport", text:"How far is your home from school (one-way)?", options:[
-    {label:"0–2 km", pts:5, pro:"Easy to walk/cycle", con:"—"},
-    {label:"2–5 km", pts:4, pro:"Bus/cycle possible", con:"—"},
-    {label:"5–10 km", pts:3, pro:"Shared travel helps", con:"—"},
-    {label:"10–20 km", pts:2, pro:"Plan efficient route", con:"—"},
-    {label:"20+ km", pts:1, pro:"—", con:"High travel emissions"},
+  { arena:"transport", tip:"Short trips in cars create more pollution per km.", text:"Distance from home to school (one way)?", options:[
+    {label:"0–2 km", pts:5, why:"Can be walk/cycle easily"},
+    {label:"2–5 km", pts:4, why:"Walk/cycle/bus possible"},
+    {label:"5–10 km", pts:3, why:"Shared options help"},
+    {label:"10–20 km", pts:2, why:"Try consolidation / carpool"},
+    {label:"20+ km", pts:1, why:"High travel footprint"},
   ]},
-  { arena:"transport", text:"How often do you carpool/share rides (if not walking/bus)?", options:[
-    {label:"Always", pts:5, pro:"Cuts emissions per person", con:"Needs coordination"},
-    {label:"Often", pts:4, pro:"Good reduction", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"Rarely", pts:2, pro:"—", con:"More emissions"},
-    {label:"Never", pts:1, pro:"—", con:"Highest emissions"},
+  { arena:"transport", tip:"Weekend trips add up quickly.", text:"How often does your family use a car for short trips (<2 km)?", options:[
+    {label:"Rarely / almost never", pts:5, why:"Great habit"},
+    {label:"Sometimes", pts:3, why:"Can reduce further"},
+    {label:"Often", pts:1, why:"High avoidable emissions"},
   ]},
-  { arena:"transport", text:"Do you combine errands in one trip (avoid extra trips)?", options:[
-    {label:"Yes, mostly", pts:5, pro:"Less fuel use", con:"Needs planning"},
-    {label:"Sometimes", pts:3, pro:"Some fuel saving", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"More trips = more emissions"},
+  { arena:"transport", tip:"Vehicle efficiency matters.", text:"Your most-used vehicle type:", options:[
+    {label:"No vehicle / mostly walk", pts:5, why:"Lowest footprint"},
+    {label:"CNG vehicle", pts:4, why:"Lower emissions than petrol/diesel"},
+    {label:"Petrol", pts:3, why:"Moderate emissions"},
+    {label:"Diesel", pts:2, why:"Higher local pollution"},
+    {label:"Old vehicle (10+ years)", pts:1, why:"Often less efficient + more pollution"},
   ]},
-  { arena:"transport", text:"What best describes your daily activity?", options:[
-    {label:"I walk/cycle daily", pts:5, pro:"Health + low emissions", con:"—"},
-    {label:"Some walking", pts:4, pro:"Health benefit", con:"—"},
-    {label:"Mostly sitting", pts:2, pro:"—", con:"Lower fitness; indirect higher emissions"},
-    {label:"Almost no walking", pts:1, pro:"—", con:"Health impact"},
-  ]},
-
-  { arena:"energy", text:"How often do you switch off lights/fans when leaving a room?", options:[
-    {label:"Always", pts:5, pro:"Saves electricity", con:"—"},
-    {label:"Often", pts:4, pro:"Good savings", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some savings", con:"—"},
-    {label:"Rarely", pts:2, pro:"—", con:"Wastes energy"},
-    {label:"Never", pts:1, pro:"—", con:"High waste"},
-  ]},
-  { arena:"energy", text:"How many hours/day is AC used at home (if any)?", options:[
-    {label:"No AC", pts:5, pro:"Lowest electricity footprint", con:"—"},
-    {label:"0–2 hours", pts:4, pro:"Controlled usage", con:"—"},
-    {label:"2–5 hours", pts:3, pro:"—", con:"Moderate electricity use"},
-    {label:"5–8 hours", pts:2, pro:"—", con:"High electricity use"},
-    {label:"8+ hours", pts:1, pro:"—", con:"Very high electricity use"},
-  ]},
-  { arena:"energy", text:"Do you use LED bulbs at home?", options:[
-    {label:"Mostly LEDs", pts:5, pro:"Uses less power", con:"—"},
-    {label:"Some LEDs", pts:3, pro:"Some savings", con:"—"},
-    {label:"No / not sure", pts:1, pro:"—", con:"Higher power use"},
-  ]},
-  { arena:"energy", text:"Do you unplug chargers when not in use?", options:[
-    {label:"Yes", pts:5, pro:"Avoids standby power", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"Wastes small but continuous energy"},
-  ]},
-  { arena:"energy", text:"How often do you use natural light during daytime?", options:[
-    {label:"Mostly", pts:5, pro:"Saves electricity", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some savings", con:"—"},
-    {label:"Rarely", pts:1, pro:"—", con:"More electricity used"},
+  { arena:"transport", tip:"Smooth driving saves fuel.", text:"Do you maintain tyre pressure/service regularly?", options:[
+    {label:"Yes, regularly", pts:5, why:"Improves mileage"},
+    {label:"Sometimes", pts:3, why:"Can improve consistency"},
+    {label:"No / rarely", pts:1, why:"Wastes fuel + more emissions"},
   ]},
 
-  { arena:"food", text:"How often do you eat vegetarian meals?", options:[
-    {label:"Daily", pts:5, pro:"Lower emissions than meat-heavy diets", con:"—"},
-    {label:"4–6 days/week", pts:4, pro:"Good reduction", con:"—"},
-    {label:"2–3 days/week", pts:3, pro:"Some reduction", con:"—"},
-    {label:"Rarely", pts:2, pro:"—", con:"Higher footprint"},
-    {label:"Never", pts:1, pro:"—", con:"Highest footprint"},
+  // ========== HOME APPLIANCES (5) ==========
+  { arena:"appliances", tip:"AC & cooling can dominate electricity usage.", text:"How much AC use happens in your home on most days?", options:[
+    {label:"No AC", pts:5, why:"Lowest electricity load"},
+    {label:"0–2 hours/day", pts:4, why:"Controlled usage"},
+    {label:"2–5 hours/day", pts:3, why:"Moderate usage"},
+    {label:"5–8 hours/day", pts:2, why:"High usage"},
+    {label:"8+ hours/day", pts:1, why:"Very high usage"},
   ]},
-  { arena:"food", text:"How often do you waste food (leave uneaten)?", options:[
-    {label:"Almost never", pts:5, pro:"Saves resources", con:"—"},
-    {label:"Sometimes", pts:3, pro:"—", con:"Some waste"},
-    {label:"Often", pts:1, pro:"—", con:"High waste"},
+  { arena:"appliances", tip:"Efficient temperatures matter.", text:"AC temperature setting (if used)?", options:[
+    {label:"26–28°C", pts:5, why:"Efficient and comfortable"},
+    {label:"24–25°C", pts:3, why:"Moderate efficiency"},
+    {label:"< 24°C", pts:1, why:"High electricity use"},
+    {label:"Not sure", pts:2, why:"Set 26°C for savings"},
   ]},
-  { arena:"food", text:"Do you carry a reusable water bottle?", options:[
-    {label:"Yes, always", pts:5, pro:"Reduces plastic bottles", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some reduction", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"More plastic waste"},
+  { arena:"appliances", tip:"Lighting efficiency is an easy win.", text:"What kind of bulbs do you mostly use?", options:[
+    {label:"Mostly LED", pts:5, why:"Uses much less power"},
+    {label:"Mix of LED + old bulbs", pts:3, why:"Can shift more to LED"},
+    {label:"Mostly old bulbs/tubes", pts:1, why:"Higher energy use"},
   ]},
-  { arena:"food", text:"How often do you eat packaged snacks/drinks?", options:[
-    {label:"Rarely", pts:5, pro:"Less packaging waste", con:"—"},
-    {label:"Sometimes", pts:3, pro:"—", con:"Moderate packaging"},
-    {label:"Daily", pts:1, pro:"—", con:"High packaging waste"},
+  { arena:"appliances", tip:"Water heating consumes a lot of energy.", text:"How do you heat water at home?", options:[
+    {label:"Solar / heat pump", pts:5, why:"Lowest footprint"},
+    {label:"Geyser used only when needed", pts:4, why:"Controlled usage helps"},
+    {label:"Geyser used daily for long time", pts:2, why:"High electricity use"},
+    {label:"Gas-based heating", pts:3, why:"Depends on usage"},
   ]},
-  { arena:"food", text:"Do you prefer local/seasonal fruits & vegetables?", options:[
-    {label:"Yes", pts:5, pro:"Lower transport emissions", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"No / not sure", pts:1, pro:"—", con:"Can be higher footprint"},
-  ]},
-
-  { arena:"waste", text:"Do you separate dry and wet waste at home?", options:[
-    {label:"Yes", pts:5, pro:"Improves recycling + composting", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"Harder to recycle"},
-  ]},
-  { arena:"waste", text:"How often do you use single-use plastic (cups, cutlery, bags)?", options:[
-    {label:"Almost never", pts:5, pro:"Cuts plastic pollution", con:"—"},
-    {label:"Sometimes", pts:3, pro:"—", con:"Some plastic waste"},
-    {label:"Often", pts:1, pro:"—", con:"High plastic waste"},
-  ]},
-  { arena:"waste", text:"Do you reuse notebooks/paper (use both sides)?", options:[
-    {label:"Yes, mostly", pts:5, pro:"Saves paper", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some saving", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"More paper waste"},
-  ]},
-  { arena:"waste", text:"What do you do with old clothes/books?", options:[
-    {label:"Donate / reuse", pts:5, pro:"Extends product life", con:"—"},
-    {label:"Sometimes donate", pts:3, pro:"Some benefit", con:"—"},
-    {label:"Throw away", pts:1, pro:"—", con:"More waste + more new production needed"},
-  ]},
-  { arena:"waste", text:"Do you recycle e-waste separately (batteries, devices)?", options:[
-    {label:"Yes", pts:5, pro:"Prevents toxic pollution", con:"—"},
-    {label:"Not sure", pts:2, pro:"—", con:"Risk of unsafe disposal"},
-    {label:"No", pts:1, pro:"—", con:"Environmental & health risk"},
+  { arena:"appliances", tip:"Fridge efficiency impacts 24/7 usage.", text:"How old is your refrigerator?", options:[
+    {label:"< 5 years (energy efficient)", pts:5, why:"More efficient models"},
+    {label:"5–10 years", pts:3, why:"Moderate efficiency"},
+    {label:"10+ years", pts:1, why:"Often inefficient"},
+    {label:"Not sure", pts:2, why:"Check star rating / age"},
   ]},
 
-  { arena:"water", text:"Average shower time?", options:[
-    {label:"< 5 minutes", pts:5, pro:"Saves water + energy", con:"—"},
-    {label:"5–10 minutes", pts:4, pro:"Good", con:"—"},
-    {label:"10–15 minutes", pts:2, pro:"—", con:"High water use"},
-    {label:"15+ minutes", pts:1, pro:"—", con:"Very high water use"},
+  // ========== ELECTRONIC DEVICES (5) ==========
+  { arena:"devices", tip:"Standby power is small but continuous.", text:"Do you switch off plugs for TV/set-top box/routers at night?", options:[
+    {label:"Yes, mostly", pts:5, why:"Reduces standby energy"},
+    {label:"Sometimes", pts:3, why:"Can improve habit"},
+    {label:"No", pts:1, why:"Constant standby usage"},
   ]},
-  { arena:"water", text:"Do you turn off the tap while brushing?", options:[
-    {label:"Always", pts:5, pro:"Saves water", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some saving", con:"—"},
-    {label:"Never", pts:1, pro:"—", con:"Wastes water"},
+  { arena:"devices", tip:"Charging habits matter.", text:"Do you unplug chargers when not in use?", options:[
+    {label:"Yes", pts:5, why:"Avoids standby power draw"},
+    {label:"Sometimes", pts:3, why:"Some improvement possible"},
+    {label:"No", pts:1, why:"Unnecessary electricity usage"},
   ]},
-  { arena:"water", text:"Do you reuse water (e.g., for plants/cleaning)?", options:[
-    {label:"Yes", pts:5, pro:"Reduces water demand", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"Higher water use"},
+  { arena:"devices", tip:"Screen time affects electricity + health.", text:"Average family screen time per day (TV + mobile + laptop)?", options:[
+    {label:"< 2 hours", pts:5, why:"Lower device use + better health"},
+    {label:"2–4 hours", pts:4, why:"Moderate use"},
+    {label:"4–6 hours", pts:2, why:"High use"},
+    {label:"6+ hours", pts:1, why:"Very high use"},
   ]},
-  { arena:"water", text:"Do you report/repair leaking taps quickly?", options:[
-    {label:"Yes", pts:5, pro:"Prevents huge wastage", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some benefit", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"Leaks waste lots of water"},
+  { arena:"devices", tip:"Energy-saving settings are easy wins.", text:"Do you use power-saving mode / auto-brightness on phones?", options:[
+    {label:"Yes", pts:5, why:"Efficient usage"},
+    {label:"Sometimes", pts:3, why:"Can be more consistent"},
+    {label:"No", pts:1, why:"Higher charging needs"},
   ]},
-  { arena:"water", text:"Do you use a bucket instead of long running water (where possible)?", options:[
-    {label:"Yes", pts:5, pro:"Lower water usage", con:"—"},
-    {label:"Sometimes", pts:3, pro:"Some saving", con:"—"},
-    {label:"No", pts:1, pro:"—", con:"Higher water usage"},
+  { arena:"devices", tip:"Reuse reduces manufacturing footprint.", text:"When you replace phones/electronics, what happens to old devices?", options:[
+    {label:"Reuse / repair / donate", pts:5, why:"Best: extends product life"},
+    {label:"Keep unused at home", pts:2, why:"Try donating/recycling"},
+    {label:"Throw away with normal waste", pts:1, why:"Harmful e-waste disposal"},
+    {label:"Send to e-waste recycler", pts:4, why:"Safer disposal"},
   ]},
 ];
 
-const ARENAS = ["transport","energy","food","waste","water"];
+const ARENAS = ["transport","appliances","devices"];
 const ARENA_LABEL = {
-  transport:"🚶 Transport", energy:"💡 Energy", food:"🍽️ Food", waste:"🗑️ Waste", water:"🚿 Water"
+  transport:"🚗 Transport",
+  appliances:"🏠 Home Appliances",
+  devices:"📱 Electronic Devices"
 };
 
-const LS_KEY = "cf_quiz_v1";
-let state = { profile: { name:"", className:"" }, index: 0, answers: {} };
+const LS_KEY = "cf_parent_v1";
+let state = {
+  profile: { parentName:"", phone:"", address:"", childClass:"" },
+  index: 0,
+  answers: {} // questionIndex -> optionIndex
+};
 
+// DOM
 const stepProfile = document.getElementById("stepProfile");
 const stepQuiz = document.getElementById("stepQuiz");
 const stepResults = document.getElementById("stepResults");
 
-const nameEl = document.getElementById("name");
-const classEl = document.getElementById("className");
+const parentNameEl = document.getElementById("parentName");
+const phoneEl = document.getElementById("phone");
+const addressEl = document.getElementById("address");
+const childClassEl = document.getElementById("childClass");
+
 const btnStart = document.getElementById("btnStart");
 const btnResume = document.getElementById("btnResume");
 
 const arenaPill = document.getElementById("arenaPill");
 const qText = document.getElementById("qText");
+const qSub = document.getElementById("qSub");
 const optionsEl = document.getElementById("options");
 const btnBack = document.getElementById("btnBack");
 const btnNext = document.getElementById("btnNext");
@@ -173,17 +134,23 @@ const progText = document.getElementById("progText");
 
 const overallScoreEl = document.getElementById("overallScore");
 const badgeTextEl = document.getElementById("badgeText");
+const whereYouAreEl = document.getElementById("whereYouAre");
 const arenaScoresEl = document.getElementById("arenaScores");
-const strengthsEl = document.getElementById("strengths");
 const improvementsEl = document.getElementById("improvements");
+const healthBenefitsEl = document.getElementById("healthBenefits");
+const envBenefitsEl = document.getElementById("envBenefits");
+
 const btnSubmit = document.getElementById("btnSubmit");
 const btnRestart = document.getElementById("btnRestart");
+const btnAI = document.getElementById("btnAI");
 const submitStatus = document.getElementById("submitStatus");
 const btnRefreshLB = document.getElementById("btnRefreshLB");
 const leaderboardEl = document.getElementById("leaderboard");
+const aiBox = document.getElementById("aiBox");
+const aiText = document.getElementById("aiText");
 
-function save() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
-function load() {
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+function load(){
   const raw = localStorage.getItem(LS_KEY);
   if (!raw) return false;
   try { state = JSON.parse(raw); return true; } catch { return false; }
@@ -196,19 +163,25 @@ function show(step){
   stepResults.style.display = step==="results" ? "block" : "none";
 }
 
+function scoreBand(overall){
+  if (overall >= 75) return { badge:"🌳 Eco Champion", where:"You are doing great. Focus on small optimizations." };
+  if (overall >= 45) return { badge:"🌿 Eco Aware", where:"Good start. A few changes can reduce footprint a lot." };
+  return { badge:"🌱 Eco Beginner", where:"You have big improvement opportunities. Start with 2–3 quick wins." };
+}
+
 function calcScores(){
   const arenaPts = Object.fromEntries(ARENAS.map(a => [a, {got:0, max:0}]));
-  const insights = [];
+  const chosenDetails = [];
 
   QUIZ.forEach((q, qi) => {
-    const chosen = state.answers[qi];
     const maxPts = Math.max(...q.options.map(o => o.pts));
     arenaPts[q.arena].max += maxPts;
 
+    const chosen = state.answers[qi];
     if (chosen !== undefined) {
       const opt = q.options[chosen];
       arenaPts[q.arena].got += opt.pts;
-      insights.push({ arena:q.arena, pts: opt.pts, pro: opt.pro, con: opt.con });
+      chosenDetails.push({ arena:q.arena, pts:opt.pts, why:opt.why, q:q.text });
     }
   });
 
@@ -219,31 +192,27 @@ function calcScores(){
   });
 
   const overall = Math.round(ARENAS.reduce((s,a)=>s+arenaScores[a],0)/ARENAS.length);
-  return { overall, arenaScores, insights };
-}
-
-function badge(overall){
-  if (overall >= 71) return "🌳 Eco Champion";
-  if (overall >= 41) return "🌿 Eco Aware";
-  return "🌱 Eco Beginner";
+  return { overall, arenaScores, chosenDetails };
 }
 
 function renderQuestion(){
   const q = QUIZ[state.index];
   arenaPill.textContent = ARENA_LABEL[q.arena];
   qText.textContent = q.text;
+  qSub.textContent = q.tip || "";
 
-  const pct = Math.round(((state.index) / QUIZ.length) * 100);
+  const pct = Math.round((state.index / QUIZ.length) * 100);
   progFill.style.width = `${pct}%`;
-  progText.textContent = `${state.index}/${QUIZ.length}`;
+  progText.textContent = `${state.index+1}/${QUIZ.length}`;
 
-  optionsEl.innerHTML = "";
   const selected = state.answers[state.index];
+  optionsEl.innerHTML = "";
 
   q.options.forEach((opt, i) => {
     const div = document.createElement("div");
     div.className = "opt" + (selected === i ? " selected" : "");
-    div.innerHTML = `<span>${opt.label}</span><span>+${opt.pts}</span>`;
+    // ⚠️ NO POINTS shown
+    div.innerHTML = `<div style="font-weight:850">${opt.label}</div><div style="color:var(--muted);font-size:13px;margin-top:6px">${opt.why}</div>`;
     div.onclick = () => {
       state.answers[state.index] = i;
       save();
@@ -258,10 +227,12 @@ function renderQuestion(){
 }
 
 function renderResults(){
-  const { overall, arenaScores, insights } = calcScores();
-
+  const { overall, arenaScores, chosenDetails } = calcScores();
   overallScoreEl.textContent = overall;
-  badgeTextEl.textContent = badge(overall);
+
+  const band = scoreBand(overall);
+  badgeTextEl.textContent = band.badge;
+  whereYouAreEl.textContent = band.where;
 
   arenaScoresEl.innerHTML = "";
   ARENAS.forEach(a => {
@@ -271,22 +242,36 @@ function renderResults(){
     arenaScoresEl.appendChild(box);
   });
 
-  const top = insights.slice().sort((x,y)=>y.pts-x.pts).filter(x=>x.pro && x.pro!=="—").slice(0,2);
-  const low = insights.slice().sort((x,y)=>x.pts-y.pts).filter(x=>x.con && x.con!=="—").slice(0,2);
+  // Improvements: pick the lowest scoring answers (by pts)
+  const improvements = chosenDetails
+    .slice()
+    .sort((x,y)=>x.pts - y.pts)
+    .slice(0,5);
 
-  strengthsEl.innerHTML = "";
   improvementsEl.innerHTML = "";
-
-  top.forEach(t => {
+  improvements.forEach(item => {
     const li = document.createElement("li");
-    li.textContent = `${ARENA_LABEL[t.arena]}: ${t.pro}`;
-    strengthsEl.appendChild(li);
+    li.textContent = `${ARENA_LABEL[item.arena]}: ${item.q} → ${item.why}`;
+    improvementsEl.appendChild(li);
   });
 
-  low.forEach(l => {
-    const li = document.createElement("li");
-    li.textContent = `${ARENA_LABEL[l.arena]}: ${l.con}`;
-    improvementsEl.appendChild(li);
+  // Benefits (generic, parent-friendly)
+  healthBenefitsEl.innerHTML = "";
+  ["Cleaner air exposure (less smoke/dust from traffic)",
+   "Better daily activity if walking/cycling",
+   "Lower indoor heat load with efficient AC usage",
+   "Reduced screen fatigue with balanced device use"
+  ].forEach(t => {
+    const li = document.createElement("li"); li.textContent = t; healthBenefitsEl.appendChild(li);
+  });
+
+  envBenefitsEl.innerHTML = "";
+  ["Lower CO₂ emissions from fewer car trips",
+   "Lower electricity demand (less fossil fuel power)",
+   "Less e-waste from reuse and recycling",
+   "Better city air quality through efficient transport"
+  ].forEach(t => {
+    const li = document.createElement("li"); li.textContent = t; envBenefitsEl.appendChild(li);
   });
 
   state.final = { overall, ...arenaScores };
@@ -298,10 +283,11 @@ async function submitToSheet(){
   btnSubmit.disabled = true;
 
   const { overall, arenaScores } = calcScores();
-
   const payload = {
-    name: state.profile.name,
-    className: state.profile.className,
+    parentName: state.profile.parentName,
+    phone: state.profile.phone,
+    address: state.profile.address,
+    childClass: state.profile.childClass,
     scores: { overall, ...arenaScores },
     answers: buildAnswerPayload()
   };
@@ -314,7 +300,7 @@ async function submitToSheet(){
     });
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || "Submit failed");
-    submitStatus.textContent = "✅ Submitted! Loading leaderboard...";
+    submitStatus.textContent = "✅ Submitted! Refreshing leaderboard...";
     await loadLeaderboard();
   } catch (e) {
     submitStatus.textContent = `❌ Submit failed: ${e.message}`;
@@ -352,8 +338,8 @@ async function loadLeaderboard(){
       div.className = "lbrow";
       div.innerHTML = `
         <div><b>#${r.rank}</b></div>
-        <div>${escapeHtml(r.name)} <span class="cls">• ${escapeHtml(r.className)}</span></div>
-        <div class="cls">${escapeHtml(r.className)}</div>
+        <div>${escapeHtml(r.name)} <span class="cls">• ${escapeHtml(r.childClass)}</span></div>
+        <div class="cls">${escapeHtml(r.childClass)}</div>
         <div style="text-align:right;"><b>${r.overall}</b></div>
       `;
       leaderboardEl.appendChild(div);
@@ -372,25 +358,53 @@ function escapeHtml(s){
     .replaceAll("'","&#039;");
 }
 
+async function getAIAdvice(){
+  aiBox.style.display = "none";
+  aiText.textContent = "";
+  submitStatus.textContent = "Getting AI advice...";
+
+  const { overall, arenaScores } = calcScores();
+
+  try {
+    const url = `${APPS_SCRIPT_URL}?action=advice&overall=${overall}&transport=${arenaScores.transport}&appliances=${arenaScores.appliances}&devices=${arenaScores.devices}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || "AI advice failed");
+    aiText.textContent = json.advice || "";
+    aiBox.style.display = "block";
+    submitStatus.textContent = "✅ AI advice ready.";
+  } catch (e) {
+    submitStatus.textContent = `❌ ${e.message}`;
+  }
+}
+
+// Events
 btnStart.onclick = () => {
-  const name = nameEl.value.trim();
-  const className = classEl.value.trim();
-  if (!name || !className) {
-    alert("Please enter Name and Class/Section.");
+  const parentName = parentNameEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const address = addressEl.value.trim();
+  const childClass = childClassEl.value.trim();
+
+  if (!parentName || !phone || !address || !childClass) {
+    alert("Please fill Parent Name, Phone, Address, and Child Class.");
     return;
   }
-  state.profile = { name, className };
+
+  state.profile = { parentName, phone, address, childClass };
   state.index = 0;
   state.answers = {};
   save();
+
   show("quiz");
   renderQuestion();
 };
 
 btnResume.onclick = () => {
   show("quiz");
-  nameEl.value = state.profile?.name || "";
-  classEl.value = state.profile?.className || "";
+  parentNameEl.value = state.profile?.parentName || "";
+  phoneEl.value = state.profile?.phone || "";
+  addressEl.value = state.profile?.address || "";
+  childClassEl.value = state.profile?.childClass || "";
   renderQuestion();
 };
 
@@ -404,6 +418,7 @@ btnNext.onclick = () => {
   if (state.answers[state.index] === undefined) return;
   state.index += 1;
   save();
+
   if (state.index >= QUIZ.length) {
     show("results");
     renderResults();
@@ -417,22 +432,29 @@ btnSubmit.onclick = submitToSheet;
 
 btnRestart.onclick = () => {
   clearSave();
-  state = { profile:{name:"", className:""}, index:0, answers:{} };
-  nameEl.value = "";
-  classEl.value = "";
+  state = { profile:{parentName:"",phone:"",address:"",childClass:""}, index:0, answers:{} };
+  parentNameEl.value = "";
+  phoneEl.value = "";
+  addressEl.value = "";
+  childClassEl.value = "";
   submitStatus.textContent = "";
+  aiBox.style.display = "none";
   show("profile");
   checkResume();
 };
 
 btnRefreshLB.onclick = loadLeaderboard;
+btnAI.onclick = getAIAdvice;
 
 function checkResume(){
   const ok = load();
-  if (ok && state?.answers && Object.keys(state.answers).length > 0) {
+  const hasAnswers = ok && state?.answers && Object.keys(state.answers).length > 0;
+  if (hasAnswers) {
     btnResume.style.display = "inline-block";
-    nameEl.value = state.profile?.name || "";
-    classEl.value = state.profile?.className || "";
+    parentNameEl.value = state.profile?.parentName || "";
+    phoneEl.value = state.profile?.phone || "";
+    addressEl.value = state.profile?.address || "";
+    childClassEl.value = state.profile?.childClass || "";
   } else {
     btnResume.style.display = "none";
   }
